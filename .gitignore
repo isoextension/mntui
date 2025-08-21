@@ -1,0 +1,6 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+*
+!main.py
+!install.sh
+!README.md
+!.gitignore
