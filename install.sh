@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# install script for mtgui
+# install script for mntui
 set -e
 
 _color() {
@@ -33,10 +33,11 @@ _paint() {
     printf "$(_color "$2")$1$(_color reset)\n"
 }
 
-MTGUI_VENV=
-MTGUI_BIN=
-PROFILE_SCRIPT=
-FISH_SCRIPT=
+MNTUI_VENV=/opt/mntui
+MNTUI_BIN_DIR=/opt/mntui/main.py
+MNTUI_BINCURL=/opt/mntui/main.py
+PROFILE_SCRIPT=/etc/profile.d
+FISH_SCRIPT=/etc/fish/profile.d
 
 _check_cmd() {
     command -v "$1" >/dev/null 2>&1
@@ -87,26 +88,26 @@ if [[ $? -ne 0 ]]; then
     exit 130
 fi
 
-_paint "-> Creating root venv at $MTGUI_VENV..." blue
-#sudo python -m venv "$MTGUI_VENV"
+_paint "-> Creating root venv at $MNTUI_VENV..." blue
+#sudo python -m venv "$MNTUI_VENV"
 
 _paint "-> Installing PyQt6 in venv..." blue
-#sudo "$MTGUI_VENV/bin/pip" install --upgrade pip
-#sudo "$MTGUI_VENV/bin/pip" install PyQt6
+#sudo "$MNTUI_VENV/bin/pip" install --upgrade pip
+#sudo "$MNTUI_VENV/bin/pip" install PyQt6
 
-_paint "-> Copying mtgui script..." blue
-#sudo cp mtgui "$MTGUI_BIN"
-#sudo chmod +x "$MTGUI_BIN"
+_paint "-> Copying mntui script..." blue
+#sudo cp mntui "$MNTUI_BIN"
+#sudo chmod +x "$MNTUI_BIN"
 
 _paint "-> Creating system-wide PATH entry..." blue
 sudo tee "$PROFILE_SCRIPT" > /dev/null <<EOF
-# added by mtgui installer
-export PATH="\$PATH:$MTGUI_VENV"
+# added by mntui installer
+export PATH="\$PATH:$MNTUI_VENV"
 EOF
 
 sudo tee "$FISH_SCRIPT" > /dev/null <<EOF
-# added by mtgui installer
-set -gx PATH $PATH /usr/share/mtgui-root-venv
+# added by mntui installer
+set -gx PATH $PATH /opt/mntui
 EOF
 
 sudo chmod +x "$PROFILE_SCRIPT"

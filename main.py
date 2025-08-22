@@ -1,4 +1,4 @@
-#!/usr/share/mtgui-root-venv/bin/python3
+#!/opt/mntui/bin/python3
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QComboBox, QLineEdit, QPushButton, QMessageBox
 import subprocess
@@ -74,6 +74,8 @@ class MountGUI(QWidget):
 
                 toprint.append(display_name)
                 self.combo.addItem(display_name)
+                # Store the actual partition data for later use
+                self.partitions.append((name, mount))
                 index = self.combo.count() - 1
                 if mount:
                     self.combo.model().item(index).setEnabled(False)
