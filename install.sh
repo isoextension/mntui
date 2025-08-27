@@ -66,7 +66,7 @@ _compare_int () {
 }
 
 _install() {
-    printf " => Installing $1...\n"
+    printf "==> Installing $1...\n"
     if _check_cmd pacman; then
         sudo pacman -S --no-confirm $1
     elif _check_cmd apt; then
@@ -88,18 +88,18 @@ if [[ $? -ne 0 ]]; then
     exit 130
 fi
 
-_paint "-> Creating root venv at $MNTUI_VENV..." blue
-#sudo python -m venv "$MNTUI_VENV"
+_paint " -> Creating root venv at $MNTUI_VENV..." blue
+sudo python -m venv "$MNTUI_VENV"
 
-_paint "-> Installing PyQt6 in venv..." blue
-#sudo "$MNTUI_VENV/bin/pip" install --upgrade pip
-#sudo "$MNTUI_VENV/bin/pip" install PyQt6
+_paint " -> Installing PyQt6 in venv..." blue
+sudo "$MNTUI_VENV/bin/pip" install --upgrade pip
+sudo "$MNTUI_VENV/bin/pip" install PyQt6
 
-_paint "-> Copying mntui script..." blue
-#sudo cp mntui "$MNTUI_BIN"
-#sudo chmod +x "$MNTUI_BIN"
+_paint " -> Copying mntui script..." blue
+sudo cp mntui "$MNTUI_BIN"
+sudo chmod +x "$MNTUI_BIN"
 
-_paint "-> Creating system-wide PATH entry..." blue
+_paint " -> Creating system-wide PATH entry..." blue
 sudo tee "$PROFILE_SCRIPT" > /dev/null <<EOF
 # added by mntui installer
 export PATH="\$PATH:$MNTUI_VENV"
